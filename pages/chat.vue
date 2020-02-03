@@ -1,9 +1,9 @@
 <template>
     <div>
         <ul>
-            <ii v-for="m in messages" :key="m.text">
+            <li v-for="m in messages" :key="m.text">
                 {{m.text}}
-            </ii>
+            </li>
         </ul>
     </div>
 </template>
