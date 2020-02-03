@@ -16,26 +16,12 @@
           </v-list-item-content>
   
           <v-list-item-icon>
-            <v-icon :color="u.id === 2 ? 'primary' : 'grey'">mdi-chat</v-icon>
+            <v-icon :color="u.id === user.id ? 'primary' : 'grey'">mdi-chat</v-icon>
           </v-list-item-icon>
         </v-list-item>
       </v-list>
   
       <v-divider></v-divider>
-  
-      <v-list subheader>
-        <v-subheader>Previous chats</v-subheader>
-  
-        <v-list-item
-          v-for="item in items2"
-          :key="item.title"
-          @click.prevent
-        >
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
   </v-navigation-drawer>
 
   <v-app-bar app>
@@ -62,18 +48,17 @@
 import {mapState, mapMutations} from 'vuex'
 export default {
   data:() => ({
-    drawer:true,
-    users:[
-      {id:1,name:'User 1'},
-      {id:2,name:'User 2'}
-    ]
+    drawer:true
   }),
-  computed:mapState(['user']),
+  computed:mapState(['user','users']),
   methods:{
     ...mapMutations(['clearData']),
     exit(){
-      this.$router.push('/?message=leftChat')
-      this.clearData();
+      this.$socket.emit('userLeft', this.user.id,()=>{
+         this.$router.push('/?message=leftChat')
+        this.clearData();
+      });
+     
     }
   }
 };
