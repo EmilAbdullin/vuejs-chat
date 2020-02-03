@@ -2,7 +2,7 @@
   <!-- App.vue -->
 
 <v-app app>
-  <v-navigation-drawer app v-model="drawer">
+  <v-navigation-drawer app v-model="drawer" mobile-break-point="991px">
     <v-list subheader>
         <v-subheader>User's list in room</v-subheader>
   
@@ -50,7 +50,7 @@
   <v-content>
 
     <!-- Provides the application the proper gutter -->
-   <div>
+   <div style="height:100%">
         <nuxt/>
    </div>
 
