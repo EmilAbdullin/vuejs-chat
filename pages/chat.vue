@@ -5,7 +5,7 @@
                 v-for="m in messages" :key="m.text"
                 :name="m.name"
                 :text="m.text"
-                owner
+                :owner="m.id === user.id"
             />
         </div>
         <div class="c-form">
