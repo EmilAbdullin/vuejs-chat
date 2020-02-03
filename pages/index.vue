@@ -10,6 +10,20 @@
     >
 
     <v-card min-width="400px">
+       <v-snackbar
+        v-model="snackbar"
+        :timeout="6000"
+        top
+      >
+        {{ message }}
+        <v-btn
+          dark
+          text
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </v-snackbar>
       <v-card-title>
         <h2>Nuxt Chat</h2>
       </v-card-title>
@@ -59,6 +73,8 @@ export default {
   data: () => ({
       valid: true,
       name:'',
+      snackbar:false,
+      message:'',
       nameRules: [
         v => !!v || 'Input your name',
         v => (v && v.length <= 16) || 'Name must be less than 16 characters',
@@ -72,6 +88,16 @@ export default {
     connect() {
       console.log('CLient IO connected');
     }
+  },
+  mounted(){
+    const {message} = this.$route.query;
+    if(message === 'noUser'){
+      this.message = "Input your data"
+    }else if(message === 'leftChat'){
+      this.message = 'You left chat'
+    }
+
+    this.snackbar = !!this.message;
   },
  methods:{
    ...mapMutations(['setUser']),
